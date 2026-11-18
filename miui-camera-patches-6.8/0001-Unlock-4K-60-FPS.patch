@@ -1,0 +1,81 @@
+From 68f36df7c679c57bf7f20c1a1ef4b64f672a9205 Mon Sep 17 00:00:00 2001
+From: ENGRahsepar <master@mshdserver.server.mshd.ir>
+Date: Wed, 18 Nov 2026 19:45:00 +0330
+Subject: [PATCH] MiuiCamera: unlock 4K60 recording
+
+Static xaga port of HyperCeiler Unlock4k60 for 6.8.002090.2.
+Force r2.g0.J(IILl9/g;)Z to report 60 fps support, matching
+the runtime returnConstant(true) hook exactly.
+
+Source: https://github.com/ReChronoRain/HyperCeiler/blob/main/library/libhook/src/main/java/com/sevtinge/hyperceiler/libhook/rules/camera/Unlock4k60.kt
+
+--- a/smali/r2/g0.smali
++++ b/smali/r2/g0.smali
+@@ -241,63 +241,12 @@
+ .end method
+ 
+ .method public static J(IILl9/g;)Z
+-    .locals 2
++    .locals 1
+ 
+-    invoke-static {p2}, Ll9/h;->u0(Ll9/g;)Ljava/util/ArrayList;
++    # HyperCeiler Unlock4k60: report 60 fps support unconditionally.
++    const/4 v0, 0x1
+ 
+-    move-result-object p2
+-
+-    if-eqz p2, :cond_2
+-
+-    invoke-virtual {p2}, Ljava/util/ArrayList;->isEmpty()Z
+-
+-    move-result v0
+-
+-    if-eqz v0, :cond_0
+-
+-    goto :goto_0
+-
+-    :cond_0
+-    invoke-virtual {p2}, Ljava/util/ArrayList;->iterator()Ljava/util/Iterator;
+-
+-    move-result-object p2
+-
+-    :cond_1
+-    invoke-interface {p2}, Ljava/util/Iterator;->hasNext()Z
+-
+-    move-result v0
+-
+-    if-eqz v0, :cond_2
+-
+-    invoke-interface {p2}, Ljava/util/Iterator;->next()Ljava/lang/Object;
+-
+-    move-result-object v0
+-
+-    check-cast v0, Ll9/o1;
+-
+-    iget v1, v0, Ll9/o1;->a:I
+-
+-    if-ne v1, p0, :cond_1
+-
+-    iget v1, v0, Ll9/o1;->b:I
+-
+-    if-ne v1, p1, :cond_1
+-
+-    const/16 v1, 0x3c
+-
+-    iget v0, v0, Ll9/o1;->c:I
+-
+-    if-ne v0, v1, :cond_1
+-
+-    const/4 p0, 0x1
+-
+-    return p0
+-
+-    :cond_2
+-    :goto_0
+-    const/4 p0, 0x0
+-
+-    return p0
++    return v0
+ .end method
+ 
+ .method public static L(ILl9/g;)Z

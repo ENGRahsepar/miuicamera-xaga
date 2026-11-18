@@ -207,6 +207,8 @@ genrule {
         "proprietary/system/priv-app/MiuiCamera/MiuiCamera.apk.part04",
         "proprietary/system/priv-app/MiuiCamera/MiuiCamera.apk.part05",
         "proprietary/system/priv-app/MiuiCamera/MiuiCamera.apk.part06",
+        "proprietary/system/priv-app/MiuiCamera/MiuiCamera.apk.part07",
+        "proprietary/system/priv-app/MiuiCamera/MiuiCamera.apk.part08",
     ],
     out: ["MiuiCamera.apk"],
     cmd: "cat $(in) > $(out)",

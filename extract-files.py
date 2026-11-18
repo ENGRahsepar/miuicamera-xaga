@@ -39,7 +39,7 @@ lib_fixups: lib_fixups_user_type = {
 
 blob_fixups: blob_fixups_user_type = {
     'system/priv-app/MiuiCamera/MiuiCamera.apk': blob_fixup()
-        .apktool_patch('miui-camera-patches')
+        .apktool_patch('miui-camera-patches-6.8')
         .call(split_apk),
     'system/lib64/libdmabufheap.so': blob_fixup()
         .add_needed('libprocessgroup_shim.so'),
@@ -48,8 +48,6 @@ blob_fixups: blob_fixups_user_type = {
         .sig_replace('08 AD 40 F9', '08 A9 40 F9'),
     ('system/lib64/libcamera_mianode_jni.xiaomi.so', 'system/lib64/libcamera_ispinterface_jni.xiaomi.so'): blob_fixup()
         .add_needed('libgui_shim_miuicamera.so'),
-    'system/lib64/vendor.mediatek.hardware.camera.isphal-V1-ndk.so': blob_fixup()
-        .replace_needed('android.hardware.graphics.common-V4-ndk.so', 'android.hardware.graphics.common-V7-ndk.so'),
 }  # fmt: skip
 
 module = ExtractUtilsModule(
