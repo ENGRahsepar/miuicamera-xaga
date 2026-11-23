@@ -24,4 +24,4 @@ Source: <https://github.com/ReChronoRain/HyperCeiler/blob/main/library/libhook/s
 
 Additional patch under validation:
 
-- `0002-Preserve-MediaTek-zoom-crop.patch` keeps the calculated crop region on MediaTek instead of resetting it to the full sensor. The preview already honors `CONTROL_ZOOM_RATIO`, but the parallel still-capture path does not apply it, so the reset produced unzoomed JPEGs. The zoom-ratio value and non-MediaTek behavior remain unchanged.
+- `0002-Preserve-MediaTek-zoom-crop.patch` keeps the calculated crop region on MediaTek and sets `CONTROL_ZOOM_RATIO` to 1.0 so it cannot override that crop. The preview honors the ratio, but the parallel still-capture path does not apply it, so resetting the crop and leaving the ratio active produced unzoomed JPEGs. Non-MediaTek behavior remains unchanged.
