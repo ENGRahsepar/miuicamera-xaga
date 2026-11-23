@@ -21,166 +21,578 @@
      invoke-static {}, Lcom/xiaomi/camera/imagecodec/ImagePool;->getInstance()Lcom/xiaomi/camera/imagecodec/ImagePool;
 --- /dev/null
 +++ b/smali_classes3/XagaZoom.smali
-@@ -0,0 +1,162 @@
+@@ -0,0 +1,574 @@
 +.class public final LXagaZoom;
 +.super Ljava/lang/Object;
-+.source "SourceFile"
++.source "XagaZoom.java"
++
++
++# static fields
++.field private static final TAG:Ljava/lang/String; = "XagaZoom"
 +
 +
 +# direct methods
-+.method public constructor <init>()V
++.method private constructor <init>()V
 +    .locals 0
 +
++    .line 14
 +    invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 +
 +    return-void
 +.end method
 +
 +.method public static apply(LVh/f;Landroid/hardware/camera2/TotalCaptureResult;II)LVh/f;
-+    .locals 10
++    .locals 17
 +
-+    if-eqz p1, :cond_0
++    move-object/from16 v0, p1
 +
-+    sget-object v0, Landroid/hardware/camera2/CaptureResult;->CONTROL_ZOOM_RATIO:Landroid/hardware/camera2/CaptureResult$Key;
++    move/from16 v1, p2
 +
-+    invoke-virtual {p1, v0}, Landroid/hardware/camera2/TotalCaptureResult;->get(Landroid/hardware/camera2/CaptureResult$Key;)Ljava/lang/Object;
++    move/from16 v2, p3
 +
-+    move-result-object v0
++    .line 18
++    const-string v9, ","
 +
-+    check-cast v0, Ljava/lang/Float;
++    const-string v10, "XagaZoom"
 +
-+    if-eqz v0, :cond_0
++    .line 0
++    const-string v11, "Applied crop="
 +
-+    invoke-virtual {v0}, Ljava/lang/Float;->floatValue()F
++    const-string v12, "NV21Crop failed: "
 +
-+    move-result v0
++    const-string v3, "resultRatio="
 +
-+    const/high16 v1, 0x3f800000    # 1.0f
++    if-eqz p0, :cond_c
 +
-+    cmpg-float v0, v0, v1
++    if-eqz v0, :cond_c
 +
-+    if-gtz v0, :cond_0
++    if-lez v1, :cond_c
 +
-+    int-to-float v1, p2
++    if-gtz v2, :cond_0
 +
-+    int-to-float v2, p3
++    goto/16 :goto_6
 +
-+    div-float v6, v1, v0
-+
-+    div-float v7, v2, v0
-+
-+    const/high16 v4, 0x40000000    # 2.0f
-+
-+    sub-float/2addr v1, v6
-+
-+    div-float/2addr v1, v4
-+
-+    sub-float/2addr v2, v7
-+
-+    div-float/2addr v2, v4
-+
-+    float-to-int v4, v1
-+
-+    float-to-int v5, v2
-+
-+    float-to-int v6, v6
-+
-+    float-to-int v7, v7
-+
-+    and-int/lit8 v4, v4, -0x2
-+
-+    and-int/lit8 v5, v5, -0x2
-+
-+    and-int/lit8 v6, v6, -0x2
-+
-+    and-int/lit8 v7, v7, -0x2
-+
-+    if-lez v6, :cond_0
-+
-+    if-lez v7, :cond_0
-+
-+    if-nez v4, :cond_1
-+
-+    if-nez v5, :cond_1
-+
-+    if-ne v6, p2, :cond_1
-+
-+    if-ne v7, p3, :cond_1
-+
++    .line 23
 +    :cond_0
-+    return-object p0
++    :try_start_0
++    sget-object v4, Landroid/hardware/camera2/CaptureResult;->CONTROL_ZOOM_RATIO:Landroid/hardware/camera2/CaptureResult$Key;
 +
-+    :cond_1
-+    invoke-interface {p0}, LVh/f;->d()[B
++    invoke-virtual {v0, v4}, Landroid/hardware/camera2/TotalCaptureResult;->get(Landroid/hardware/camera2/CaptureResult$Key;)Ljava/lang/Object;
++
++    move-result-object v4
++
++    check-cast v4, Ljava/lang/Float;
++
++    .line 24
++    sget-object v5, Landroid/hardware/camera2/CaptureResult;->SCALER_CROP_REGION:Landroid/hardware/camera2/CaptureResult$Key;
++
++    invoke-virtual {v0, v5}, Landroid/hardware/camera2/TotalCaptureResult;->get(Landroid/hardware/camera2/CaptureResult$Key;)Ljava/lang/Object;
++
++    move-result-object v5
++
++    check-cast v5, Landroid/graphics/Rect;
++
++    .line 25
++    invoke-virtual {v0}, Landroid/hardware/camera2/TotalCaptureResult;->getRequest()Landroid/hardware/camera2/CaptureRequest;
 +
 +    move-result-object v0
 +
-+    move v1, p2
++    const/4 v13, 0x0
 +
-+    move v2, p3
++    if-nez v0, :cond_1
 +
++    move-object v6, v13
++
++    goto :goto_0
++
++    .line 27
++    :cond_1
++    sget-object v6, Landroid/hardware/camera2/CaptureRequest;->CONTROL_ZOOM_RATIO:Landroid/hardware/camera2/CaptureRequest$Key;
++
++    invoke-virtual {v0, v6}, Landroid/hardware/camera2/CaptureRequest;->get(Landroid/hardware/camera2/CaptureRequest$Key;)Ljava/lang/Object;
++
++    move-result-object v6
++
++    check-cast v6, Ljava/lang/Float;
++
++    :goto_0
++    if-nez v0, :cond_2
++
++    move-object v0, v13
++
++    goto :goto_1
++
++    .line 29
++    :cond_2
++    sget-object v7, Landroid/hardware/camera2/CaptureRequest;->SCALER_CROP_REGION:Landroid/hardware/camera2/CaptureRequest$Key;
++
++    invoke-virtual {v0, v7}, Landroid/hardware/camera2/CaptureRequest;->get(Landroid/hardware/camera2/CaptureRequest$Key;)Ljava/lang/Object;
++
++    move-result-object v0
++
++    check-cast v0, Landroid/graphics/Rect;
++
++    .line 31
++    :goto_1
++    invoke-static {v4}, LXagaZoom;->validRatio(Ljava/lang/Float;)Z
++
++    move-result v7
++
++    const/high16 v8, 0x3f800000    # 1.0f
++
++    if-eqz v7, :cond_3
++
++    invoke-virtual {v4}, Ljava/lang/Float;->floatValue()F
++
++    move-result v7
++
++    goto :goto_2
++
++    :cond_3
++    const/high16 v7, 0x3f800000    # 1.0f
++
++    .line 32
++    :goto_2
++    const-string v14, "result-ratio"
++
++    cmpg-float v15, v7, v8
++
++    if-gtz v15, :cond_4
++
++    .line 33
++    invoke-static {v6}, LXagaZoom;->validRatio(Ljava/lang/Float;)Z
++
++    move-result v15
++
++    if-eqz v15, :cond_4
++
++    .line 34
++    invoke-virtual {v6}, Ljava/lang/Float;->floatValue()F
++
++    move-result v7
++
++    .line 35
++    const-string v14, "request-ratio"
++
++    :cond_4
++    cmpg-float v15, v7, v8
++
++    if-gtz v15, :cond_6
++
++    .line 38
++    invoke-static {v0, v1, v2}, LXagaZoom;->ratioFromCrop(Landroid/graphics/Rect;II)F
++
++    move-result v15
++
++    cmpl-float v16, v15, v8
++
++    if-lez v16, :cond_5
++
++    .line 41
++    const-string v14, "request-crop"
++
++    :goto_3
++    move v7, v15
++
++    goto :goto_4
++
++    .line 43
++    :cond_5
++    invoke-static {v5, v1, v2}, LXagaZoom;->ratioFromCrop(Landroid/graphics/Rect;II)F
++
++    move-result v15
++
++    cmpl-float v16, v15, v8
++
++    if-lez v16, :cond_6
++
++    .line 46
++    const-string v14, "result-crop"
++
++    goto :goto_3
++
++    .line 51
++    :cond_6
++    :goto_4
++    new-instance v15, Ljava/lang/StringBuilder;
++
++    invoke-direct {v15, v3}, Ljava/lang/StringBuilder;-><init>(Ljava/lang/String;)V
++
++    invoke-virtual {v15, v4}, Ljava/lang/StringBuilder;->append(Ljava/lang/Object;)Ljava/lang/StringBuilder;
++
++    const-string v3, ", requestRatio="
++
++    invoke-virtual {v15, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
++
++    invoke-virtual {v15, v6}, Ljava/lang/StringBuilder;->append(Ljava/lang/Object;)Ljava/lang/StringBuilder;
++
++    const-string v3, ", resultCrop="
++
++    invoke-virtual {v15, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
++
++    invoke-virtual {v15, v5}, Ljava/lang/StringBuilder;->append(Ljava/lang/Object;)Ljava/lang/StringBuilder;
++
++    const-string v3, ", requestCrop="
++
++    invoke-virtual {v15, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
++
++    invoke-virtual {v15, v0}, Ljava/lang/StringBuilder;->append(Ljava/lang/Object;)Ljava/lang/StringBuilder;
++
++    const-string v0, ", output="
++
++    invoke-virtual {v15, v0}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
++
++    invoke-virtual {v15, v1}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
++
++    const-string v0, "x"
++
++    invoke-virtual {v15, v0}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
++
++    invoke-virtual {v15, v2}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
++
++    const-string v0, ", selected="
++
++    invoke-virtual {v15, v0}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
++
++    invoke-virtual {v15, v7}, Ljava/lang/StringBuilder;->append(F)Ljava/lang/StringBuilder;
++
++    const-string v0, ", source="
++
++    invoke-virtual {v15, v0}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
++
++    invoke-virtual {v15, v14}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
++
++    invoke-virtual {v15}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
++
++    move-result-object v0
++
++    invoke-static {v10, v0}, Landroid/util/Log;->d(Ljava/lang/String;Ljava/lang/String;)I
++
++    cmpg-float v0, v7, v8
++
++    if-gtz v0, :cond_7
++
++    goto/16 :goto_6
++
++    :cond_7
++    int-to-float v0, v1
++
++    div-float/2addr v0, v7
++
++    float-to-int v0, v0
++
++    and-int/lit8 v6, v0, -0x2
++
++    int-to-float v0, v2
++
++    div-float/2addr v0, v7
++
++    float-to-int v0, v0
++
++    and-int/lit8 v7, v0, -0x2
++
++    sub-int v0, v1, v6
++
++    .line 61
++    div-int/lit8 v0, v0, 0x2
++
++    and-int/lit8 v4, v0, -0x2
++
++    sub-int v0, v2, v7
++
++    .line 62
++    div-int/lit8 v0, v0, 0x2
++
++    and-int/lit8 v5, v0, -0x2
++
++    if-lez v6, :cond_c
++
++    if-lez v7, :cond_c
++
++    if-ltz v4, :cond_c
++
++    if-ltz v5, :cond_c
++
++    add-int v0, v4, v6
++
++    if-gt v0, v1, :cond_c
++
++    add-int v0, v5, v7
++
++    if-gt v0, v2, :cond_c
++
++    if-nez v4, :cond_8
++
++    if-nez v5, :cond_8
++
++    if-ne v6, v1, :cond_8
++
++    if-ne v7, v2, :cond_8
++
++    goto/16 :goto_6
++
++    .line 70
++    :cond_8
++    invoke-interface/range {p0 .. p0}, LVh/f;->d()[B
++
++    move-result-object v0
++
++    if-eqz v0, :cond_b
++
++    .line 71
++    array-length v3, v0
++
++    mul-int v8, v1, v2
++
++    mul-int/lit8 v8, v8, 0x3
++
++    div-int/lit8 v14, v8, 0x2
++
++    if-ge v3, v14, :cond_9
++
++    goto :goto_5
++
++    :cond_9
 +    mul-int v3, v6, v7
 +
 +    mul-int/lit8 v3, v3, 0x3
 +
++    .line 75
 +    div-int/lit8 v3, v3, 0x2
 +
 +    new-array v3, v3, [B
 +
-+    mul-int v9, p2, p3
++    .line 76
++    div-int/lit8 v14, v8, 0x2
 +
-+    mul-int/lit8 v9, v9, 0x3
-+
-+    div-int/lit8 v9, v9, 0x2
-+
-+    new-array v9, v9, [B
++    new-array v15, v14, [B
 +
 +    const/4 v8, 0x0
 +
++    .line 77
 +    invoke-static/range {v0 .. v8}, Lcom/xiaomi/libyuv/YuvUtils;->NV21Crop([BII[BIIIII)I
 +
-+    move-result v8
++    move-result v0
 +
-+    if-eqz v8, :cond_2
++    move v8, v5
 +
-+    return-object p0
++    move v1, v6
 +
-+    :cond_2
-+    move v4, v6
++    move v2, v7
 +
-+    move v5, v7
++    move v7, v4
 +
-+    move-object v6, v9
++    if-eqz v0, :cond_a
 +
-+    move v7, p2
++    .line 80
++    new-instance v1, Ljava/lang/StringBuilder;
 +
-+    move v8, p3
++    invoke-direct {v1, v12}, Ljava/lang/StringBuilder;-><init>(Ljava/lang/String;)V
 +
-+    const/4 v9, 0x1
++    invoke-virtual {v1, v0}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
 +
-+    invoke-static/range {v3 .. v9}, Lcom/xiaomi/libyuv/YuvUtils;->NV21Scale([BII[BIII)V
-+
-+    invoke-interface {p0}, LVh/f;->release()V
-+
-+    mul-int v0, p2, p3
-+
-+    mul-int/lit8 v0, v0, 0x3
-+
-+    div-int/lit8 v0, v0, 0x2
-+
-+    invoke-static {v0}, Ljava/nio/ByteBuffer;->allocate(I)Ljava/nio/ByteBuffer;
++    invoke-virtual {v1}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
 +
 +    move-result-object v0
 +
-+    const/4 v1, 0x0
++    invoke-static {v10, v0}, Landroid/util/Log;->e(Ljava/lang/String;Ljava/lang/String;)I
 +
-+    new-instance v2, Lxp/a;
++    return-object p0
 +
-+    invoke-direct {v2, v0, v1}, Lxp/a;-><init>(Ljava/nio/ByteBuffer;Lxp/a$a;)V
++    :cond_a
++    const/4 v6, 0x1
 +
-+    new-instance v3, LVh/h;
++    move/from16 v4, p2
 +
-+    invoke-direct {v3, v2}, LVh/h;-><init>(Lxp/a;)V
++    move/from16 v5, p3
 +
-+    return-object v3
++    move-object v0, v3
++
++    move-object v3, v15
++
++    .line 83
++    invoke-static/range {v0 .. v6}, Lcom/xiaomi/libyuv/YuvUtils;->NV21Scale([BII[BIII)V
++
++    .line 85
++    new-instance v0, LVh/h;
++
++    new-instance v4, Lxp/a;
++
++    invoke-static {v3}, Ljava/nio/ByteBuffer;->wrap([B)Ljava/nio/ByteBuffer;
++
++    move-result-object v3
++
++    invoke-direct {v4, v3, v13}, Lxp/a;-><init>(Ljava/nio/ByteBuffer;Lxp/a$a;)V
++
++    invoke-direct {v0, v4}, LVh/h;-><init>(Lxp/a;)V
++
++    .line 86
++    invoke-interface/range {p0 .. p0}, LVh/f;->release()V
++
++    .line 87
++    new-instance v3, Ljava/lang/StringBuilder;
++
++    invoke-direct {v3, v11}, Ljava/lang/StringBuilder;-><init>(Ljava/lang/String;)V
++
++    invoke-virtual {v3, v7}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
++
++    invoke-virtual {v3, v9}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
++
++    invoke-virtual {v3, v8}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
++
++    invoke-virtual {v3, v9}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
++
++    invoke-virtual {v3, v1}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
++
++    invoke-virtual {v3, v9}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
++
++    invoke-virtual {v3, v2}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
++
++    const-string v1, ", bytes="
++
++    invoke-virtual {v3, v1}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
++
++    invoke-virtual {v3, v14}, Ljava/lang/StringBuilder;->append(I)Ljava/lang/StringBuilder;
++
++    invoke-virtual {v3}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
++
++    move-result-object v1
++
++    invoke-static {v10, v1}, Landroid/util/Log;->d(Ljava/lang/String;Ljava/lang/String;)I
++
++    return-object v0
++
++    .line 72
++    :cond_b
++    :goto_5
++    const-string v0, "Invalid NV21 source"
++
++    invoke-static {v10, v0}, Landroid/util/Log;->e(Ljava/lang/String;Ljava/lang/String;)I
++    :try_end_0
++    .catchall {:try_start_0 .. :try_end_0} :catchall_0
++
++    return-object p0
++
++    :catchall_0
++    move-exception v0
++
++    .line 91
++    const-string v1, "Zoom processing failed; keeping original frame"
++
++    invoke-static {v10, v1, v0}, Landroid/util/Log;->e(Ljava/lang/String;Ljava/lang/String;Ljava/lang/Throwable;)I
++
++    :cond_c
++    :goto_6
++    return-object p0
++.end method
++
++.method private static ratioFromCrop(Landroid/graphics/Rect;II)F
++    .locals 2
++
++    const/high16 v0, 0x3f800000    # 1.0f
++
++    if-eqz p0, :cond_2
++
++    .line 101
++    invoke-virtual {p0}, Landroid/graphics/Rect;->width()I
++
++    move-result v1
++
++    if-lez v1, :cond_2
++
++    invoke-virtual {p0}, Landroid/graphics/Rect;->height()I
++
++    move-result v1
++
++    if-gtz v1, :cond_0
++
++    goto :goto_0
++
++    .line 104
++    :cond_0
++    invoke-static {p1, p2}, Ljava/lang/Math;->max(II)I
++
++    move-result p1
++
++    int-to-float p1, p1
++
++    .line 105
++    invoke-virtual {p0}, Landroid/graphics/Rect;->width()I
++
++    move-result p2
++
++    invoke-virtual {p0}, Landroid/graphics/Rect;->height()I
++
++    move-result p0
++
++    invoke-static {p2, p0}, Ljava/lang/Math;->max(II)I
++
++    move-result p0
++
++    int-to-float p0, p0
++
++    cmpl-float p2, p0, p1
++
++    if-ltz p2, :cond_1
++
++    return v0
++
++    :cond_1
++    div-float/2addr p1, p0
++
++    const p0, 0x3f8147ae    # 1.01f
++
++    cmpl-float p0, p1, p0
++
++    if-lez p0, :cond_2
++
++    const/high16 p0, 0x41200000    # 10.0f
++
++    cmpg-float p0, p1, p0
++
++    if-gtz p0, :cond_2
++
++    return p1
++
++    :cond_2
++    :goto_0
++    return v0
++.end method
++
++.method private static validRatio(Ljava/lang/Float;)Z
++    .locals 1
++
++    if-eqz p0, :cond_0
++
++    .line 97
++    invoke-virtual {p0}, Ljava/lang/Float;->isNaN()Z
++
++    move-result v0
++
++    if-nez v0, :cond_0
++
++    invoke-virtual {p0}, Ljava/lang/Float;->isInfinite()Z
++
++    move-result v0
++
++    if-nez v0, :cond_0
++
++    invoke-virtual {p0}, Ljava/lang/Float;->floatValue()F
++
++    move-result p0
++
++    const/high16 v0, 0x3f800000    # 1.0f
++
++    cmpl-float p0, p0, v0
++
++    if-lez p0, :cond_0
++
++    const/4 p0, 0x1
++
++    return p0
++
++    :cond_0
++    const/4 p0, 0x0
++
++    return p0
 +.end method
