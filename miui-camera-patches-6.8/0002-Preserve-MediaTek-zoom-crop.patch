@@ -1,0 +1,14 @@
+--- a/smali_classes3/l9/n0.smali
++++ b/smali_classes3/l9/n0.smali
+@@ -5151,6 +5151,13 @@
+     :goto_1
++    # MediaTek's parallel still-capture path does not apply
++    # CONTROL_ZOOM_RATIO. Preserve the calculated crop region instead of
++    # resetting it to the full sensor; that reset loses the captured zoom.
++    sget-boolean p2, LPe/c;->i:Z
++
++    if-eqz p2, :cond_5
++
+     invoke-virtual {p1}, Ll9/g;->D0()Z
+ 
+     move-result p2

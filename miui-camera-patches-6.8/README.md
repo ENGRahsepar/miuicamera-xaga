@@ -21,3 +21,7 @@ Validated fixes included in the prebuilt APK:
 `Lr2/g0;->J(IILl9/g;)Z`; the method returns `true` unconditionally.
 
 Source: <https://github.com/ReChronoRain/HyperCeiler/blob/main/library/libhook/src/main/java/com/sevtinge/hyperceiler/libhook/rules/camera/Unlock4k60.kt>
+
+Additional patch under validation:
+
+- `0002-Preserve-MediaTek-zoom-crop.patch` keeps the calculated crop region on MediaTek instead of resetting it to the full sensor. The preview already honors `CONTROL_ZOOM_RATIO`, but the parallel still-capture path does not apply it, so the reset produced unzoomed JPEGs. The zoom-ratio value and non-MediaTek behavior remain unchanged.
