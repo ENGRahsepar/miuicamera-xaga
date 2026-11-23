@@ -1,17 +1,9 @@
 --- a/smali_classes10/Mp/l$e.smali
 +++ b/smali_classes10/Mp/l$e.smali
-@@ -1404,6 +1404,26 @@
+@@ -1404,6 +1404,18 @@
 
      move-result-object p1
 
-+    sget-object v4, Landroid/hardware/camera2/CaptureResult;->SCALER_CROP_REGION:Landroid/hardware/camera2/CaptureResult$Key;
-+
-+    invoke-virtual {v3, v4}, Landroid/hardware/camera2/TotalCaptureResult;->get(Landroid/hardware/camera2/CaptureResult$Key;)Ljava/lang/Object;
-+
-+    move-result-object v4
-+
-+    check-cast v4, Landroid/graphics/Rect;
-+
 +    invoke-virtual {p2}, Landroid/media/Image;->getWidth()I
 +
 +    move-result v5
@@ -20,7 +12,7 @@
 +
 +    move-result v6
 +
-+    invoke-static {p1, v4, v5, v6}, LXagaZoom;->apply(LVh/f;Landroid/graphics/Rect;II)LVh/f;
++    invoke-static {p1, v3, v5, v6}, LXagaZoom;->apply(LVh/f;Landroid/hardware/camera2/TotalCaptureResult;II)LVh/f;
 +
 +    move-result-object p1
 +
@@ -29,7 +21,7 @@
      invoke-static {}, Lcom/xiaomi/camera/imagecodec/ImagePool;->getInstance()Lcom/xiaomi/camera/imagecodec/ImagePool;
 --- /dev/null
 +++ b/smali_classes3/XagaZoom.smali
-@@ -0,0 +1,120 @@
+@@ -0,0 +1,162 @@
 +.class public final LXagaZoom;
 +.super Ljava/lang/Object;
 +.source "SourceFile"
@@ -44,22 +36,64 @@
 +    return-void
 +.end method
 +
-+.method public static apply(LVh/f;Landroid/graphics/Rect;II)LVh/f;
++.method public static apply(LVh/f;Landroid/hardware/camera2/TotalCaptureResult;II)LVh/f;
 +    .locals 10
 +
 +    if-eqz p1, :cond_0
 +
-+    iget v4, p1, Landroid/graphics/Rect;->left:I
++    sget-object v0, Landroid/hardware/camera2/CaptureResult;->CONTROL_ZOOM_RATIO:Landroid/hardware/camera2/CaptureResult$Key;
 +
-+    iget v5, p1, Landroid/graphics/Rect;->top:I
++    invoke-virtual {p1, v0}, Landroid/hardware/camera2/TotalCaptureResult;->get(Landroid/hardware/camera2/CaptureResult$Key;)Ljava/lang/Object;
 +
-+    iget v6, p1, Landroid/graphics/Rect;->right:I
++    move-result-object v0
 +
-+    sub-int/2addr v6, v4
++    check-cast v0, Ljava/lang/Float;
 +
-+    iget v7, p1, Landroid/graphics/Rect;->bottom:I
++    if-eqz v0, :cond_0
 +
-+    sub-int/2addr v7, v5
++    invoke-virtual {v0}, Ljava/lang/Float;->floatValue()F
++
++    move-result v0
++
++    const/high16 v1, 0x3f800000    # 1.0f
++
++    cmpg-float v0, v0, v1
++
++    if-gtz v0, :cond_0
++
++    int-to-float v1, p2
++
++    int-to-float v2, p3
++
++    div-float v6, v1, v0
++
++    div-float v7, v2, v0
++
++    const/high16 v4, 0x40000000    # 2.0f
++
++    sub-float/2addr v1, v6
++
++    div-float/2addr v1, v4
++
++    sub-float/2addr v2, v7
++
++    div-float/2addr v2, v4
++
++    float-to-int v4, v1
++
++    float-to-int v5, v2
++
++    float-to-int v6, v6
++
++    float-to-int v7, v7
++
++    and-int/lit8 v4, v4, -0x2
++
++    and-int/lit8 v5, v5, -0x2
++
++    and-int/lit8 v6, v6, -0x2
++
++    and-int/lit8 v7, v7, -0x2
 +
 +    if-lez v6, :cond_0
 +

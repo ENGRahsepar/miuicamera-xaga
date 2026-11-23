@@ -24,4 +24,4 @@ Source: <https://github.com/ReChronoRain/HyperCeiler/blob/main/library/libhook/s
 
 Additional patch under validation:
 
-- `0002-Preserve-MediaTek-zoom-crop.patch` applies the capture-result crop to the final NV21 buffer and scales it back to the original output size before JPEG compression. MediaTek's preview honors `CONTROL_ZOOM_RATIO`, but the parallel still-capture path does not apply it, so this performs the required digital zoom at save time without changing other formats or camera modes. Non-MediaTek behavior remains unchanged.
+- `0002-Preserve-MediaTek-zoom-crop.patch` derives a centered crop from `CONTROL_ZOOM_RATIO` and scales it back to the original output size before JPEG compression. MediaTek's preview honors the ratio, but the parallel still-capture path does not apply it and may return a full-sensor crop, so this performs the required digital zoom at save time without changing other formats or camera modes. Non-MediaTek behavior remains unchanged.
