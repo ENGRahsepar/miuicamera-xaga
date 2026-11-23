@@ -22,7 +22,7 @@
 +
 +    invoke-static {p0, p2, v0, v5}, Lia/D0;->c(Landroid/hardware/camera2/CaptureRequest$Builder;Landroid/hardware/camera2/CaptureRequest$Key;Ljava/lang/Object;Z)V
 +
-+    b :cond_5
++    goto :cond_5
 +
 +    :cond_6
      invoke-virtual {p1}, Ll9/g;->D0()Z
