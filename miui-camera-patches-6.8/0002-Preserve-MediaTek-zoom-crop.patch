@@ -117,7 +117,7 @@
 +
 +    move/from16 v18, v7
 +
-+    invoke-range/range {v10 .. v18}, Lcom/xiaomi/libyuv/YuvUtils;->NV21Crop([BII[BIIIII)I
++    invoke-range {v10 .. v18}, Lcom/xiaomi/libyuv/YuvUtils;->NV21Crop([BII[BIIIII)I
 +
 +    move-result v8
 +
@@ -142,7 +142,7 @@
 +
 +    move v15, p3
 +
-+    invoke-range/range {v10 .. v16}, Lcom/xiaomi/libyuv/YuvUtils;->NV21Scale([BII[BIII)V
++    invoke-range {v10 .. v16}, Lcom/xiaomi/libyuv/YuvUtils;->NV21Scale([BII[BIII)V
 +
 +    invoke-interface {p0}, LVh/f;->release()V
 +
