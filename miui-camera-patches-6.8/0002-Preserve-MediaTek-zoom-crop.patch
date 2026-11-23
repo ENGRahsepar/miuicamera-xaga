@@ -29,7 +29,7 @@
      invoke-static {}, Lcom/xiaomi/camera/imagecodec/ImagePool;->getInstance()Lcom/xiaomi/camera/imagecodec/ImagePool;
 --- /dev/null
 +++ b/smali_classes3/XagaZoom.smali
-@@ -0,0 +1,100 @@
+@@ -0,0 +1,132 @@
 +.class public final LXagaZoom;
 +.super Ljava/lang/Object;
 +.source "SourceFile"
@@ -45,7 +45,7 @@
 +.end method
 +
 +.method public static apply(LVh/f;Landroid/graphics/Rect;II)LVh/f;
-+    .locals 9
++    .locals 19
 +
 +    if-eqz p1, :cond_0
 +
@@ -99,7 +99,25 @@
 +
 +    const/4 v7, 0x0
 +
-+    invoke-static {v6, p2, p3, v4, v0, v1, v2, v3, v7}, Lcom/xiaomi/libyuv/YuvUtils;->NV21Crop([BII[BIIIII)I
++    move-object v10, v6
++
++    move v11, p2
++
++    move v12, p3
++
++    move-object v13, v4
++
++    move v14, v0
++
++    move v15, v1
++
++    move/from16 v16, v2
++
++    move/from16 v17, v3
++
++    move/from16 v18, v7
++
++    invoke-range/range {v10 .. v18}, Lcom/xiaomi/libyuv/YuvUtils;->NV21Crop([BII[BIIIII)I
 +
 +    move-result v8
 +
@@ -110,7 +128,21 @@
 +    :cond_2
 +    const/4 v7, 0x1
 +
-+    invoke-static/range {v4 .. v9}, Lcom/xiaomi/libyuv/YuvUtils;->NV21Scale([BII[BIII)V
++    move-object v10, v4
++
++    move/from16 v16, v7
++
++    move/from16 v11, v2
++
++    move/from16 v12, v3
++
++    move-object v13, v5
++
++    move v14, p2
++
++    move v15, p3
++
++    invoke-range/range {v10 .. v16}, Lcom/xiaomi/libyuv/YuvUtils;->NV21Scale([BII[BIII)V
 +
 +    invoke-interface {p0}, LVh/f;->release()V
 +
