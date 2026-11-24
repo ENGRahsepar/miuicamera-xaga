@@ -1,0 +1,187 @@
+--- /dev/null
++++ b/smali_classes3/Mp/f.smali
+@@ -0,0 +1,184 @@
++.class public final LMp/f;
++.super Ljava/lang/Object;
++.source "SourceFile"
++
++
++# annotations
++.annotation system Ldalvik/annotation/MemberClasses;
++    value = {
++        LMp/f$c;,
++        LMp/f$b;
++    }
++.end annotation
++
++
++# static fields
++.field public static e:I = -0x1
++
++
++# instance fields
++.field public a:LMp/f$b;
++
++.field public b:Ljava/lang/ref/WeakReference;
++    .annotation system Ldalvik/annotation/Signature;
++        value = {
++            "Ljava/lang/ref/WeakReference<",
++            "LSh/A;",
++            ">;"
++        }
++    .end annotation
++.end field
++
++.field public c:I
++
++.field public final d:LMp/f$a;
++
++
++# direct methods
++.method public constructor <init>()V
++    .locals 1
++
++    invoke-direct {p0}, Ljava/lang/Object;-><init>()V
++
++    new-instance v0, LMp/f$a;
++
++    invoke-direct {v0, p0}, LMp/f$a;-><init>(LMp/f;)V
++
++    iput-object v0, p0, LMp/f;->d:LMp/f$a;
++
++    return-void
++.end method
++
++.method public static b()Lcom/xiaomi/camera/imagecodec/Reprocessor;
++    .locals 2
++
++    sget v0, Lcom/android/camera/module/a0;->a:I
++
++    const/16 v1, 0xa0
++
++    if-eq v0, v1, :cond_0
++
++    const/16 v1, 0xaf
++
++    if-eq v0, v1, :cond_0
++
++    const/16 v1, 0xba
++
++    if-eq v0, v1, :cond_0
++
++    const/16 v1, 0xa3
++
++    if-ne v0, v1, :cond_1
++
++    :cond_0
++    sget-object v0, Lcom/xiaomi/camera/imagecodec/ReprocessorFactory$ReprocessorType;->SOFTWARE_CODEC:Lcom/xiaomi/camera/imagecodec/ReprocessorFactory$ReprocessorType;
++
++    invoke-static {v0}, Lcom/xiaomi/camera/imagecodec/ReprocessorFactory;->getReprocessor(Lcom/xiaomi/camera/imagecodec/ReprocessorFactory$ReprocessorType;)Lcom/xiaomi/camera/imagecodec/Reprocessor;
++
++    move-result-object v0
++
++    invoke-static {}, Lcom/xiaomi/camera/basic/Global;->getApplication()Landroid/app/Application;
++
++    move-result-object v1
++
++    invoke-interface {v0, v1}, Lcom/xiaomi/camera/imagecodec/Reprocessor;->init(Landroid/content/Context;)V
++
++    return-object v0
++
++    :cond_1
++    sget v0, LMp/f;->e:I
++
++    const/4 v1, -0x1
++
++    if-ne v0, v1, :cond_2
++
++    sget-boolean v0, LPe/b;->j:Z
++
++    sget-object v0, LPe/b$b;->a:LPe/b;
++
++    iget-object v0, v0, LPe/b;->e:L蹈蹄蹆踅蹆蹂踅蹏蹎蹝蹂蹈蹎踅蹈蹄蹆蹆蹄蹅踅蹨蹄蹆蹆蹄蹅;
++
++    invoke-virtual {v0}, L蹈蹄蹆踅蹆蹂踅蹏蹎蹝蹂蹈蹎踅蹈蹄蹆蹆蹄蹅踅蹨蹄蹆蹆蹄蹅;->K4()I
++
++    move-result v0
++
++    sput v0, LMp/f;->e:I
++
++    :cond_2
++    invoke-static {}, Lcom/xiaomi/camera/imagecodec/ReprocessorFactory$ReprocessorType;->values()[Lcom/xiaomi/camera/imagecodec/ReprocessorFactory$ReprocessorType;
++
++    move-result-object v0
++
++    sget v1, LMp/f;->e:I
++
++    aget-object v0, v0, v1
++
++    invoke-static {v0}, Lcom/xiaomi/camera/imagecodec/ReprocessorFactory;->getReprocessor(Lcom/xiaomi/camera/imagecodec/ReprocessorFactory$ReprocessorType;)Lcom/xiaomi/camera/imagecodec/Reprocessor;
++
++    move-result-object v0
++
++    invoke-static {}, Lcom/xiaomi/camera/basic/Global;->getApplication()Landroid/app/Application;
++
++    move-result-object v1
++
++    invoke-interface {v0, v1}, Lcom/xiaomi/camera/imagecodec/Reprocessor;->init(Landroid/content/Context;)V
++
++    return-object v0
++.end method
++
++
++# virtual methods
++.method public final a()LMp/f$b;
++    .locals 4
++
++    iget-object v0, p0, LMp/f;->a:LMp/f$b;
++
++    if-nez v0, :cond_1
++
++    invoke-static {}, LPe/b;->g0()Z
++
++    move-result v0
++
++    if-nez v0, :cond_1
++
++    const/4 v0, 0x0
++
++    new-array v1, v0, [Ljava/lang/Object;
++
++    const-string v2, "LocalParallelService"
++
++    const-string v3, "onCreate"
++
++    invoke-static {v2, v3, v1}, Lcom/android/camera/log/Log;->d(Ljava/lang/String;Ljava/lang/String;[Ljava/lang/Object;)V
++
++    sget-object v1, LPe/b$b;->a:LPe/b;
++
++    iget-object v1, v1, LPe/b;->e:L蹈蹄蹆踅蹆蹂踅蹏蹎蹝蹂蹈蹎踅蹈蹄蹆蹆蹄蹅踅蹨蹄蹆蹆蹄蹅;
++
++    invoke-virtual {v1}, L蹈蹄蹆踅蹆蹂踅蹏蹎蹝蹂蹈蹎踅蹈蹄蹆蹆蹄蹅踅蹨蹄蹆蹆蹄蹅;->X4()Z
++
++    move-result v1
++
++    if-nez v1, :cond_0
++
++    const-string v1, "This device does not support Algo up, do nothing."
++
++    new-array v0, v0, [Ljava/lang/Object;
++
++    invoke-static {v2, v1, v0}, Lcom/android/camera/log/Log;->d(Ljava/lang/String;Ljava/lang/String;[Ljava/lang/Object;)V
++
++    goto :goto_0
++
++    :cond_0
++    new-instance v0, LMp/f$b;
++
++    invoke-direct {v0, p0}, LMp/f$b;-><init>(LMp/f;)V
++
++    iput-object v0, p0, LMp/f;->a:LMp/f$b;
++
++    :cond_1
++    :goto_0
++    iget-object p0, p0, LMp/f;->a:LMp/f$b;
++
++    return-object p0
++.end method
