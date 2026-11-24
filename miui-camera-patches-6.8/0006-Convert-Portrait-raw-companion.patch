@@ -1,6 +1,6 @@
 --- /dev/null
 +++ b/smali_classes3/Mp/l$e.smali
-@@ -0,0 +1,1629 @@
+@@ -0,0 +1,1633 @@
 +.class public final LMp/l$e;
 +.super Ljava/lang/Object;
 +.source "SourceFile"
@@ -1259,9 +1259,11 @@
 +    return-void
 +
 +    :cond_16
-+    const/4 v4, 0x1
++    move/from16 v4, p2
 +
-+    if-ne p2, v4, :cond_xaga_raw_default
++    const/4 v5, 0x1
++
++    if-ne v4, v5, :cond_xaga_raw_default
 +
 +    iget-object v4, v1, LSh/t;->g:LSh/u;
 +
@@ -1301,7 +1303,9 @@
 +    invoke-interface {v4}, LVh/f;->release()V
 +
 +    :cond_xaga_raw_close
-+    if-eqz p3, :cond_xaga_raw_close_image
++    move/from16 v0, p3
++
++    if-eqz v0, :cond_xaga_raw_close_image
 +
 +    invoke-static {}, Lcom/xiaomi/camera/imagecodec/ImagePool;->getInstance()Lcom/xiaomi/camera/imagecodec/ImagePool;
 +
