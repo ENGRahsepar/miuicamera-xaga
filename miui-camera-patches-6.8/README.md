@@ -24,6 +24,6 @@ Source: <https://github.com/ReChronoRain/HyperCeiler/blob/main/library/libhook/s
 
 Additional patch under validation:
 
-- `0003-Allow-Portrait-without-tuning-buffer.patch` is a candidate for the Portrait timeout. It applies only to shot type 6 using the dual-camera processor and allows its already-received main/sub frames to proceed when the optional tuning image never arrives. It does not disable or replace the bokeh processor. The modified callback is staged in `classes3` for the single-DEX test package.
+- `0004-Allow-dual-frames-without-tuning-buffer.patch` is a candidate for the Portrait timeout. It changes only the dual-frame readiness check so already-received main/sub frames can proceed when the optional tuning image never arrives. It does not disable or replace the bokeh processor. The modified `CaptureData` inner class is staged in `classes3` for the single-DEX test package.
 
-The earlier NV21 save-time zoom candidate was rejected after it produced black frames and a `ManagedByteBuffer … has been released` crash. It is not included in subsequent packages.
+The earlier NV21 save-time zoom candidate was rejected after it produced black frames and a `ManagedByteBuffer … has been released` crash. It is not included in subsequent packages. The earlier callback-level tuning candidate did not execute for the failing capture and was also withdrawn.
